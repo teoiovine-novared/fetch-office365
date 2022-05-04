@@ -2,7 +2,6 @@ import urllib.request
 import json
 
 #test
-#test
 
 guid = "5336ccd0-a833-40b7-ab39-ada7511db97f" #GUID para llamar al JSON de Microsoft (lo requiere)
 latestVersion = "0000000000" #Version inicial del JSON de Microsoft 
