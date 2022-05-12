@@ -38,5 +38,5 @@ def patchDataGroup(host,dataGroup,user,passwd,verify,records):
 	# Este doble paso lo tuve que hacer para que me armara correctamente el JSON.
 	# JSON necesita que sea con comillas dobles, y las listas de python laburan con comillas simples
 	records_json = {"records":records}
-	records_json = json.dumps(json_records)
+	records_json = json.dumps(records_json)
 	return json.loads(requests.patch(requestPath,records_json,verify=verify,auth=(user, passwd),headers=head).text)
