@@ -1,8 +1,7 @@
 #!/bin/bash
-# V1
+# Script para el crontab. Simplemente se trae las variables del otro archivo y
+# se las pasa al script de Python
+# TODO: hacer que modifique el parameters.sh con la version de O365 si hace falta
 
-echo "a b c d e f" | IFS=  read a
-echo $a
-python3.8 dataGroupManager.py $a $b $c $d $e $f
-
-echo ""
+source parameters.sh
+python3.8 dataGroupManager.py $IP $NAME $VERSION $USER $PASS $SSL

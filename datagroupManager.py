@@ -1,25 +1,21 @@
 import fetchIP
 import sys
 
-# Defaults para los argumentos de llamada
-# Los usamos ahora para testear tranquilos
-
-f5Host = "10.100.107.32" # IP por defecto del F5 si no dan uno por argumento (TODO: 127.0.0.1)
+f5Host = "127.0.0.1" # IP por defecto del F5 si no dan uno por argumento (TODO: 127.0.0.1)
 dataGroupName = "O365_list" # Nombre por defecto del datagroup si no dan uno por argumento
-latestVersion = 64343653465436 # Ultima version registrada. La ponemos en 0 si el programa comienza por primera vez (pongo en 0 para forzar)
-user = "admin" # (Para test, esto debería venir siempre por argumento)
-passwd = "123momia" # (idem)
-verify = bool(0)
+latestVersion = 0 # Ultima version registrada. La ponemos en 0 por si el programa comienza por primera vez
+user = "admin" # User por defecto admin
+verify = True # Por defecto verificamos
 
 # Argumentos de llamada
 # TODO: Hacer que no importe el orden
 
-#f5Host = str(sys.argv[1])
-#dataGroupName = str(sys.argv[2])
-#latestVersion = int(sys.argv[3])
-#user = str(sys.argv[4])
-#passwd = str(sys.argv[5])
-#verify = bool(sys.argv[6])
+f5Host = str(sys.argv[1])
+dataGroupName = str(sys.argv[2])
+latestVersion = int(sys.argv[3])
+user = str(sys.argv[4])
+passwd = str(sys.argv[5])
+verify = bool(int(sys.argv[6]))
 
 o365Version = int(fetchIP.checkVersion())
 
