@@ -8,7 +8,6 @@ user = "admin" # User por defecto admin
 verify = True # Por defecto verificamos
 
 # Argumentos de llamada
-# TODO: Hacer que no importe el orden
 
 f5Host = str(sys.argv[1])
 dataGroupName = str(sys.argv[2])
