@@ -8,30 +8,37 @@ user = "admin" # User por defecto admin
 verify = True # Por defecto verificamos
 
 # Argumentos de llamada
+# TODO: Hacer que no importe el orden
 
 f5Host = str(sys.argv[1])
 dataGroupName = str(sys.argv[2])
-latestVersion = int(sys.argv[3])
-user = str(sys.argv[4])
-passwd = str(sys.argv[5])
-verify = bool(int(sys.argv[6]))
+user = str(sys.argv[3])
+passwd = str(sys.argv[4])
+verify = bool(int(sys.argv[5]))
 
+
+version_file = open("latest_version", "r")
+latestVersion = int(version_file.read())
+version_file.close()
 o365Version = int(fetchIP.checkVersion())
 
 if o365Version > latestVersion:
-	o365List_raw = fetchIP.getIps()
-	o365List_unique = []
-	for x in o365List_raw:
-		# No todos los id tienen IP. Si lo mostras asi nomas, te da error.
-		# Por eso chequeamos si existe primero
-		if "ips" in x:
-			for y in x['ips']:
-				if y not in o365List_unique:
-					# Solo agrego a la lista los valores que no están ya en ella
-					o365List_unique.append(y)
-	# Enviamos la lista al F5
-	r = fetchIP.patchDataGroup(f5Host,dataGroupName,user,passwd,verify,o365List_unique)
-	# Devolvemos el codigo de respuesta del F5
-	print(r.status_code,r.reason)
+        o365List_raw = fetchIP.getIps()
+        o365List_unique = []
+        for x in o365List_raw:
+                # No todos los id tienen IP. Si lo mostras asi nomas, te da error.
+                # Por eso chequeamos si existe primero
+                if "ips" in x:
+                        for y in x['ips']:
+                                if y not in o365List_unique:
+                                        # Solo agrego a la lista los valores que no estan ya en ella
+                                        o365List_unique.append(y)
+        # Enviamos la lista al F5
+        r = fetchIP.patchDataGroup(f5Host,dataGroupName,user,passwd,verify,o365List_unique)
+        # Devolvemos el codigo de respuesta del F5
+        print(r.status_code,r.reason)
+        version_file = open("latest_version", "w")
+        version_file.write(str(o365Version))
+        version_file.close()
 else:
-	sys.stdout.write("No es necesario actualizar. Ultima version: " + str(o365Version))
+        sys.stdout.write("No es necesario actualizar. Ultima version: " + str(o365Version))

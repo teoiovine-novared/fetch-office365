@@ -7,6 +7,6 @@ cd /home/admin/fetch-office365 # Ver como no hardcodear esto
 source parameters.sh
 logger -s "============================="
 logger -s "Ejecutando o365_list_update.sh"
-logger -s "Resultado:" ; python dataGroupManager.py $IP $NAME $VERSION $USER $PASS $SSL | logger
+logger -s "Resultado:" ; python dataGroupManager.py $IP $NAME $USER $PASS $SSL | logger
 logger -s "Fin de ejecucion"
 logger -s "============================="
