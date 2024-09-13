@@ -1,14 +1,14 @@
 import fetchIP
 import sys
 
-f5Host = "127.0.0.1" # IP por defecto del F5 si no dan uno por argumento (TODO: 127.0.0.1)
-dataGroupName = "O365_list" # Nombre por defecto del datagroup si no dan uno por argumento
-latestVersion = 0 # Ultima version registrada. La ponemos en 0 por si el programa comienza por primera vez
-user = "admin" # User por defecto admin
-verify = True # Por defecto verificamos
+f5Host = "127.0.0.1" # Default IP
+dataGroupName = "O365_list" # Default data group
+latestVersion = 0 # 0 if first time the program runs. 0 si es la primera vez que corre.
+user = "admin" # defaults to admin
+verify = True # defaults to check ssl authenticity
 
 # Argumentos de llamada
-# TODO: Hacer que no importe el orden
+# Call arguments
 
 f5Host = str(sys.argv[1])
 dataGroupName = str(sys.argv[2])
@@ -17,28 +17,40 @@ passwd = str(sys.argv[4])
 verify = bool(int(sys.argv[5]))
 
 
+# Chequeamos la ultima version registrada por la app
+# Check the latest version recorded by the app
 version_file = open("latest_version", "r")
 latestVersion = int(version_file.read())
 version_file.close()
 o365Version = int(fetchIP.checkVersion())
 
 if o365Version > latestVersion:
+        # Construimos una lista con registros unicos de las IPv4.
+        # Descartamos URLS e IPv6.
+        # TODO: Agregar soporte para URLS e IPv6.
+        # Build a list with unique IPv4 addresses.
+        # Discards URLS and IPv6 addresses.
+        # TODO: Support for URLS and IPv6 addresses.
         o365List_raw = fetchIP.getIps()
         o365List_unique = []
         for x in o365List_raw:
                 # No todos los id tienen IP. Si lo mostras asi nomas, te da error.
                 # Por eso chequeamos si existe primero
+                # Not every id has IP addresses in them.
+                # Could run in some errors if we don't verify.
                 if "ips" in x:
                         for y in x['ips']:
                                 if y not in o365List_unique:
-                                        # Solo agrego a la lista los valores que no estan ya en ella
                                         o365List_unique.append(y)
         # Enviamos la lista al F5
+        # Send list to F5
         r = fetchIP.patchDataGroup(f5Host,dataGroupName,user,passwd,verify,o365List_unique)
-        # Devolvemos el codigo de respuesta del F5
+        # Devolvemos el codigo de respuesta a logger
+        # Return response code to logger
         print(r.status_code,r.reason)
         version_file = open("latest_version", "w")
         version_file.write(str(o365Version))
         version_file.close()
 else:
+        # Should modify this to your language or message of preference
         sys.stdout.write("No es necesario actualizar. Ultima version: " + str(o365Version))
