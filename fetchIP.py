@@ -10,7 +10,7 @@ import requests # type: ignore
 # Helper function to build calls to O365
 #	method= version pull versions; method= endpoints pulls urls/ips JSON
 #	scope= Worlwide: everything. We do not use other than that.
-def urlHelper(method: str,scope: str) -> str:
+def urlHelper(method,scope):
 	ws = "https://endpoints.office.com"
 	guid = str(uuid.uuid4())
 	requestPath = ws+'/'+method+'/'+scope+'?ClientRequestId='+guid
@@ -18,11 +18,11 @@ def urlHelper(method: str,scope: str) -> str:
 
 # Funcion para obtener la ultima version del archivo JSON de MS
 # Function to get latest version of the MS JSON File
-def checkVersion() -> str:
+def checkVersion():
 	return json.loads(urlHelper("version","Worldwide"))['latest']
 
 # Funcion para traernos las IP de O365
-def getIps() -> list:
+def getIps():
 	return json.loads(urlHelper("endpoints","Worldwide"))
 
 # Funcion para traer el data group entero del F5
@@ -30,13 +30,13 @@ def getIps() -> list:
 # La dejo por si en un futuro sirve
 # Deprecated function to get whole data group from F5
 # Leaving it just in case
-def getDataGroup(host: str,dataGroup:str ,user: str,passwd: str,verify: bool) -> str:
+def getDataGroup(host,dataGroup,user,passwd,verify):
 	requestPath = 'https://'+host+'/mgmt/tm/ltm/data-group/internal/'+dataGroup
 	return json.loads(requests.get(requestPath,verify = verify,auth=(user, passwd)).text)
 
 # Funcion para subir el datagroup al F5
 # Function to patch datagroup to F5
-def patchDataGroup(host: str,dataGroup: str,user: str,passwd: str,verify: bool,records: list) -> str:
+def patchDataGroup(host,dataGroup,user,passwd,verify,records):
 	requestPath = 'https://'+host+'/mgmt/tm/ltm/data-group/internal/'+dataGroup
 	head = {'Content-Type':'application/json'} # Encabezado necesario para la peticion
 	# Este doble paso lo tuve que hacer para que me armara correctamente el JSON.
