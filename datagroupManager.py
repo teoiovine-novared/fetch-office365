@@ -25,12 +25,12 @@ version_file.close()
 o365Version = int(fetchIP.checkVersion())
 
 if o365Version > latestVersion:
-        # Construimos una lista con registros unicos de las IPv4.
-        # Descartamos URLS e IPv6.
-        # TODO: Agregar soporte para URLS e IPv6.
-        # Build a list with unique IPv4 addresses.
-        # Discards URLS and IPv6 addresses.
-        # TODO: Support for URLS and IPv6 addresses.
+        # Construimos una lista con registros unicos de las IPv4 e IPv6.
+        # Descartamos URLS.
+        # TODO: Agregar soporte para URLS.
+        # Build a list with unique IPv4 or IPv6 addresses.
+        # Discards URLS.
+        # TODO: Support for URLS.
         o365List_raw = fetchIP.getIps()
         o365List_unique = []
         for x in o365List_raw:

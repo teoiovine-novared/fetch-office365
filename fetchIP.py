@@ -10,7 +10,7 @@ import requests # type: ignore
 # Helper function to build calls to O365
 #	method= version pull versions; method= endpoints pulls urls/ips JSON
 #	scope= Worlwide: everything. We do not use other than that.
-def urlHelper(method,scope):
+def urlHelper(ws,method,scope):
 	ws = "https://endpoints.office.com"
 	guid = str(uuid.uuid4())
 	requestPath = ws+'/'+method+'/'+scope+'?ClientRequestId='+guid
