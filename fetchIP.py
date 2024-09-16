@@ -22,6 +22,7 @@ def checkVersion():
 	return json.loads(urlHelper("version","Worldwide"))['latest']
 
 # Funcion para traernos las IP de O365
+# Function to get O365 Ips
 def getIps():
 	return json.loads(urlHelper("endpoints","Worldwide"))
 
