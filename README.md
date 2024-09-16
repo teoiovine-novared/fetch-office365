@@ -25,5 +25,5 @@ Python/BASH script that pulls O365 IP list from Microsoft web service (https://l
 
 Done! Now you can use your datagroup in an iRule with 
 > class match IP equals "O365_list"
-or in a policy
+
 
