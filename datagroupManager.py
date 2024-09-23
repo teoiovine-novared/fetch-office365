@@ -5,7 +5,6 @@ import argparse
 if __name__ == "__main__":
 	# Argumentos de llamada
 	# Call arguments
-	# test
 	parser = argparse.ArgumentParser(description='Import and update F5 data group with MS 365 IP addresses \r Importa y actualiza un data group en F5 con IPs de MS 365')
 	parser.add_argument('-i', '--ip',default="127.0.0.1",type=str,
 					 	help="F5 IP")
@@ -21,8 +20,6 @@ if __name__ == "__main__":
 					 	help="Show verbose output")
 	args = parser.parse_args()
 	print(args.ip)
-
-
 
 	# Chequeamos la ultima version registrada por la app
 	# Check the latest version recorded by the app

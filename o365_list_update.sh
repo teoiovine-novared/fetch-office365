@@ -17,6 +17,6 @@ source parameters.sh
 # Should change this messages to your preference
 logger -s "============================="
 logger -s "Ejecutando o365_list_update.sh"
-logger -s "Resultado:" ; python dataGroupManager.py $IP $NAME $USER $PASS $SSL | logger
+logger -s "Resultado:" ; python dataGroupManager.py -i "127.0.0.1" -d "O365_list" -u "admin" -p "123momia" -k | logger
 logger -s "Fin de ejecucion"
 logger -s "============================="
