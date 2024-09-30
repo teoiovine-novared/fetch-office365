@@ -17,7 +17,7 @@ if __name__ == "__main__":
 	parser.add_argument('-k', '--unsecure',action='store_false',
 					 	help="Do not verify SSL")
 	parser.add_argument('-D', '--debug',action='store_true',
-					 	help="Show verbose output")
+					 	help="Show verbose output")#TODO Debug statements
 	args = parser.parse_args()
 	print(args.ip)
 
@@ -52,10 +52,11 @@ if __name__ == "__main__":
 		r = fetchIP.patchDataGroup(args,o365List_unique)
 		# Devolvemos el codigo de respuesta a logger
 		# Return response code to logger
-		print(r.status_code,r.reason)
-		version_file = open("latest_version", "w")
-		version_file.write(str(o365Version))
-		version_file.close()
+		if r:
+			print(r.status_code,r.reason+" Success!!")
+			version_file = open("latest_version", "w")
+			version_file.write(str(o365Version))
+			version_file.close()
 	else:
 		# Should modify this to your language or message of preference
-		sys.stdout.write("No es necesario actualizar. Ultima version: " + str(o365Version))
+		sys.stdout.write("No need to update. Latest version: " + str(o365Version))
