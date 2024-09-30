@@ -4,8 +4,8 @@
 # Parameters for o365_list_update.sh
 # Set strict permissions for this file
 
-IP="127.0.0.1"
-NAME="O365_list"
-USER="admin"
-PASS="password"
-SSL="0"
+IP="10.100.107.32" # F5 IP
+NAME="O365_list" # datagroup name
+USER="admin" # API user
+PASS="" # passwd TODO: hide
+SSL="0" # 0 to skip SSL verification
